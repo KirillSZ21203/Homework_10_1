@@ -1,35 +1,36 @@
-"""Содержит новые функции приложения"""
+from datetime import datetime
 
 from masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(card_type_and_number: str) -> str:
-    """Маскирует номер карты"""
+    """
+    Маскирует номер карты или счета в зависимости от того, что на входе функции.
+    """
     parts = card_type_and_number.split()
     if len(parts) < 2:
-        raise ValueError("Некорректные входные данные")
+        raise ValueError("Некорректные входные данные: строка должна содержать тип и номер.")
     card_type = " ".join(parts[:-1])
     card_number = parts[-1]
-    digits = "".join(filter(str.isdigit, card_number))  # Проверка на числовое значение
+    digits = "".join(filter(str.isdigit, card_number))  # Извлечение цифр из строки card_number
 
     # Определение категорий по содержимому: карта или счет
     keywords_card = ["visa", "visa classic", "visa platinum", "visa gold", "mastercard", "maestro"]
     keywords_account = ["счет", "счёт"]
 
-    def is_type(keywords):
+    def is_type(keywords: list) -> bool:
+        """
+        Определяет, что содержит строка: карту или счет.
+        """
         return any(keyword in card_type.lower() for keyword in keywords)
 
     if is_type(keywords_account):
         # Маскируем счет
-        if len(digits) < 4:
-            raise ValueError("Длина номера счета должна быть больше 4-х цифр.")
         masked_number = get_mask_account(digits)
         return f"Счет {masked_number}"
 
     elif is_type(keywords_card):
         # Маскируем карту
-        if len(digits) != 16:
-            raise ValueError("Длина номера карты должна быть 16 цифр.")
         masked_number = get_mask_card_number(digits)
         return f"{card_type} {masked_number}"
 
@@ -40,4 +41,10 @@ def mask_account_card(card_type_and_number: str) -> str:
         )
 
 
-print(mask_account_card("Viski 6468647367889477"))
+def get_date(date: str) -> str:
+    """
+    Принимает на вход строку (например "2024-03-11T02:26:18.671407") и возвращает строку с датой в формате:
+    'ДД.ММ.ГГГГ'
+    """
+    converted_date = datetime.fromisoformat(date)
+    return converted_date.strftime("%d.%m.%Y")

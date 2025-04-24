@@ -7,9 +7,7 @@ def get_mask_card_number(card_number: str) -> str:
     if len(card_number) != 16:
         raise ValueError("Длина номера карты - 16 символов.")
 
-    split_number = " ".join(
-        card_number[i : i + 4] for i in range(0, len(card_number), 4)
-    )
+    split_number = " ".join(card_number[i: i + 4] for i in range(0, len(card_number), 4))
     mask_number = split_number[:7] + "** ****" + split_number[-5:]
     return mask_number
 

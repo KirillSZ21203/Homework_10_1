@@ -48,5 +48,3 @@ def get_date(date: str) -> str:
     """
     converted_date = datetime.fromisoformat(date)
     return converted_date.strftime("%d.%m.%Y")
-
-print(mask_account_card('Visa Platinum 8990912113665229'))

@@ -46,5 +46,7 @@ def get_date(date: str) -> str:
     Принимает на вход строку (например "2024-03-11T02:26:18.671407") и возвращает строку с датой в формате:
     'ДД.ММ.ГГГГ'
     """
+    if date is None or date == "":
+        raise ValueError("Введенная дата не должна быть пустой")
     converted_date = datetime.fromisoformat(date)
     return converted_date.strftime("%d.%m.%Y")

@@ -66,7 +66,9 @@ def test_filter_by_state(id_list: list, empty_list: list, input_list: list, outp
         ),
     ],
 )
-def test_sort_by_date(id_list: list, empty_list: list, test_number_5: str, input_list: list, output_list: list) -> None:
+def test_sort_by_date(
+    id_list: list, empty_list: list, test_number_5: str, input_list: list, output_list: list
+) -> None:
     assert sort_by_date(
         [
             {"id": id_list[0], "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},

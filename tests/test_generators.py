@@ -1,9 +1,11 @@
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
-def test_filter_by_currency(transactions: list, another_transaction: list, empty_list: list, dict_transaction_1: dict, dict_transaction_2: dict) -> None:
+def test_filter_by_currency(
+    transactions: list, another_transaction: list, empty_list: list, dict_transaction_1: dict, dict_transaction_2: dict
+) -> None:
     generator = filter_by_currency(transactions, "USD")
     assert next(generator) == dict_transaction_1
     assert next(generator) == dict_transaction_2

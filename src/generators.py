@@ -33,7 +33,7 @@ def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
         raise ValueError("Некорректный диапазон чисел")
 
     for number in range(start, stop + 1):
-        formatted_number = " ".join(f"{number:016d}"[i : i + 4] for i in range(0, 16, 4))
+        formatted_number = " ".join(f"{number:016d}"[i: i + 4] for i in range(0, 16, 4))
         yield formatted_number
 
 
